@@ -1,9 +1,9 @@
 public class FListMerge {
-    public static FList<Integer> merge(FList<Integer> merged, FList<Integer> a, FList<Integer> b) {
-        /* pre: merged: FList that will be construct to be thread safe
-                a, b : FList of the original FList that has to be rebuild ordered */
-
+    public static FList<Integer> merge(FList<Integer> a, FList<Integer> b) {
+        /* pre: a, b : FList of the original FList that has to be rebuild ordered */
+        
         // each loop cuts the head of the smaller FList(a, b) and put it in a bag(FList merged)
+        FList<Integer> merged = FList.nil()
         while ( a.isNotEmpty() && b.isNotEmpty() ) {
             if (a.head() <= b.head()) {
                 merged = merged.cons(a.head());
@@ -44,7 +44,7 @@ public class FListMerge {
         left = mergeSort(left); right = mergeSort(right);
 
         // Since a FList of size 1 is ordered and left and right are of size 1, we can merge the two;
-        left = merge(FList.nil(), right, left);
+        left = merge(right, left);
 
         // Since the data structure is stack(FIFO) like: reverse before merge (Note: for simplicity I show the easy way)
         right = FList.nil();
