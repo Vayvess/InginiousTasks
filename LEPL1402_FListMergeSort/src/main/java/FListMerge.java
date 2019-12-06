@@ -1,11 +1,11 @@
 public class FListMerge {
-    public static FList<Integer> merge(FList<Integer> a, FList<Integer> b) {
+    public static FList<Integer> merge(FList<Integer> a, FList<Integer> b, boolean ascending) {
         /* pre: a, b : FList of the original FList that has to be rebuild ordered */
-        
+
         // each loop cuts the head of the smaller FList(a, b) and put it in a bag(FList merged)
         FList<Integer> merged = FList.nil();
         while ( a.isNotEmpty() && b.isNotEmpty() ) {
-            if (a.head() <= b.head()) {
+            if (ascending ? a.head() >= b.head() : a.head() <= b.head()) {
                 merged = merged.cons(a.head());
                 a = a.tail();
             } else {
@@ -23,36 +23,30 @@ public class FListMerge {
         return merged;
     }
 
-
-    /* This method receives an FList and returns the FList containing the same values but
-     sorted with the smallest value to the highest one. */
-
-    public static FList<Integer> mergeSort(FList<Integer> fList){
+    public static FList<Integer> split(FList<Integer> fList, boolean ascending){
         // terminal condition
         if ( fList.length() == 1 ) return fList;
 
-        // Split using sugar syntax due to the fact that FList implements Iterable
-        FList<Integer> left = FList.nil(), right = FList.nil();
-        int mid = fList.length() / 2; int n = 0;
-        for (Integer i: fList) {
-            if (n < mid){ left = left.cons(i); }
-            else { right = right.cons(i); }
-            n++;
+        // Splits the original FList in two halves: newOne: 0 to mid, fList: mid to end
+        int mid = fList.length() / 2; FList<Integer> newOne = FList.nil();
+        while (mid-- != 0){ newOne = newOne.cons(fList.head()); fList = fList.tail(); }
+
+        // the last call of split gives an ascending FList of size 1 so we can merge the two split.
+        FList<Integer> left = split(newOne, !ascending), right = split(fList, !ascending);
+
+        return merge(left, right, ascending);
+    }
+
+
+    public static FList<Integer> mergeSort(FList<Integer> fList){
+        return split(fList, true);
+    }
+
+    public static void main(String[] args) {
+        FList<Integer> test = FList.nil();
+        for (int i = 0; i < 25; i++) {
+            test = test.cons((int) (Math.random() * 100));
         }
-
-        // for FList of size n -> length: left = n/2, right = n/2 -> terminal condition -> length: left = 1, right = 1
-        left = mergeSort(left); right = mergeSort(right);
-
-        // Since a FList of size 1 is ordered and left and right are of size 1, we can merge the two;
-        left = merge(right, left);
-
-        // Since the data structure is stack(FIFO) like: reverse before merge (Note: for simplicity I show the easy way)
-        right = FList.nil();
-        for (Integer i : left) {
-            right = right.cons(i);
-        }
-
-        // right is ordered and in ascending order, right is the answer of an recursive call !
-        return right;
+        System.out.println(mergeSort(test));
     }
 }

@@ -26,7 +26,7 @@ public abstract class FList<A> implements Iterable<A>{
 
     public static <A> FList<A> nil() {
         return (Nil<A>) Nil.INSTANCE;
-    } // Not my fault: i know it's frustrating
+    }
 
     public final FList<A> cons(final A a) { return new Cons(a, this); } // Same :)
 
@@ -93,6 +93,7 @@ public abstract class FList<A> implements Iterable<A>{
         for (A item: this) {
             output.append(item.toString()).append(", ");
         }
+
         output.append(']');
         return output.toString();
     }
