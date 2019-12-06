@@ -38,7 +38,7 @@ public class Tests{
         int[] array = new int[1000];
         for(int i = 0 ; i < 1000 ; i++){
             int r = randomInt();
-            fl.cons(r);
+            fl = fl.cons(r);
             array[i] = r;
         }
         Arrays.sort(array);
@@ -51,7 +51,7 @@ public class Tests{
 
         FList<Integer> copy = supposedSorted;
         for(int i = 0 ; i < 1000 ; i++){
-            if(array[i]!=copy.head()) throw new CustomGradingResult(TestStatus.FAILED, 0 , "Some element have changed");
+            if(array[i] != copy.head()) throw new CustomGradingResult(TestStatus.FAILED, 0 , "Some element have changed");
             copy = copy.tail();
         }
 
