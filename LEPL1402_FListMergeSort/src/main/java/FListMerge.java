@@ -2,7 +2,7 @@ public class FListMerge {
     public static FList<Integer> merge(FList<Integer> a, FList<Integer> b, boolean ascending) {
         /* pre: a, b : FList of the original FList that has to be rebuild ordered */
 
-        // each loop cuts the head of the smaller FList(a, b) and put it in a bag(FList merged)
+        // each loop cuts the head of the smaller/greater FList(a, b) and put it in a bag(FList merged)
         FList<Integer> merged = FList.nil();
         while ( a.isNotEmpty() && b.isNotEmpty() ) {
             if (ascending ? a.head() >= b.head() : a.head() <= b.head()) {
