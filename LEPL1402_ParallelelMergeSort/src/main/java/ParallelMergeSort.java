@@ -10,7 +10,7 @@ public class ParallelMergeSort<E> extends RecursiveAction {
     private volatile E[] array, aux;
     private int lo, hi;
     private Comparator<? super E> comp;
-    
+
     private static final int threshold = 128;
 
 
@@ -34,7 +34,7 @@ public class ParallelMergeSort<E> extends RecursiveAction {
         }
     }
 
-	//Sort array between lo and hi using merge sort
+    //Sort array between lo and hi using merge sort
     private void sort(int lo, int hi){
         if (hi <= lo) return;
         int mid = (lo + hi) / 2;
@@ -73,7 +73,7 @@ public class ParallelMergeSort<E> extends RecursiveAction {
     }
 
     public static void main(String[] args) {
-        int size = 500; Random rng = new Random();
+        int size = 1000; Random rng = new Random();
         Integer[] array = new Integer[size];
         for(int i = 0 ; i < size ; i++){
             array[i] = rng.nextInt(100000);
