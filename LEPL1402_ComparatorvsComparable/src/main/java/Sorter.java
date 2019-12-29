@@ -1,3 +1,5 @@
+import org.graalvm.compiler.lir.amd64.AMD64Move;
+
 import java.util.List;
 import java.awt.Color;
 
@@ -34,7 +36,7 @@ public class Sorter {
         list.sort(new Comparator<Plant>() {
             @Override
             public int compare(Plant a, Plant b) {
-                return a.getName().compareTo(b.getName());
+                
             }
         });
     }
