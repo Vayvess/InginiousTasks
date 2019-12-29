@@ -1,7 +1,8 @@
 public class MeteoStation extends Observable {
     @Override
     public Observer[] getSubscribers() {
-        return subscribers.toArray(Observer[]::new);
+        // return subscribers.toArray(Observer[]::new);
+        return subscribers.toArray(new Observer[]{});
     }
 
     @Override
